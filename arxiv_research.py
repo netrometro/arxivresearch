@@ -3,7 +3,6 @@ import xml.dom.minidom as minidom
 import google as genai
 import streamlit as st
 import requests
-import arxiv
 import time
 import datetime
 
@@ -73,33 +72,6 @@ def busca_arxiv(query: str, start_date: str, end_date: str, max_artigos: int = 1
 
     except Exception as e:
         return [], f"Erro ao consultar a API do arXiv: {e}"
-
-
-def buscar_artigos_arxiv(query_texto: str, quantidade_artigos: int):
-    try:
-        pesquisa = arxiv.Search(
-            query=query_texto,
-            max_results=quantidade_artigos,
-            sort_by=arxiv.SortCriterion.Relevance,
-            sort_order=arxiv.SortOrder.Descending
-        )
-
-        cliente = arxiv.Client(
-            delay_seconds=3.0,
-            num_retries=3
-        )
-
-        resultados = list(cliente.results(pesquisa))
-        resultados = sorted(resultados, key=lambda art: art.published, reverse=True)
-        return resultados, None
-
-    except arxiv.HTTPError as e:
-        print(e)
-        return None, "Erro HTTP ao acessar a API do arXiv!!!"
-    except Exception as e:
-        print(e)
-        return None, "Erro inesperado ao buscar artigos no arXiv!!!"
-
 
 
 def getModel(api_key):
