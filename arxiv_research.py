@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 import xml.dom.minidom as minidom
-import google.generativeai as genai
+import google as genai
 import streamlit as st
 import requests
 import arxiv
